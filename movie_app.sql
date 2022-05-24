@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 24, 2022 at 01:45 PM
+-- Generation Time: May 24, 2022 at 02:06 PM
 -- Server version: 8.0.29-0ubuntu0.20.04.3
 -- PHP Version: 7.4.3
 
@@ -279,6 +279,12 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `movies` (`category`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Constraints for table `entries_tracking`
+--
+ALTER TABLE `entries_tracking`
+  ADD CONSTRAINT `entries_date_ibfk_1` FOREIGN KEY (`entry_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `movies`
 --
 ALTER TABLE `movies`
@@ -294,8 +300,7 @@ ALTER TABLE `payments`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`gender`) REFERENCES `users_gender` (`gender_id`),
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `entries_tracking` (`entry_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`gender`) REFERENCES `users_gender` (`gender_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
