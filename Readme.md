@@ -69,7 +69,8 @@ WHERE movie_id = [movie_id]
 
 ```sql
 SELECT * FROM `movies` 
-ORDER BY `movies`.`release_date` DESC 
+ORDER BY `movies`.`release_date` DESC
+WHERE movie_id<=3
 ```
 
 ### **Thanks to you !**
