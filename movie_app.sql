@@ -2,10 +2,10 @@
 -- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 24, 2022 at 02:06 PM
--- Server version: 8.0.29-0ubuntu0.20.04.3
--- PHP Version: 7.4.3
+-- Hôte : localhost:3306
+-- Généré le : jeu. 26 mai 2022 à 16:04
+-- Version du serveur :  8.0.29-0ubuntu0.20.04.3
+-- Version de PHP : 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `movie_app`
+-- Base de données : `movie_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Structure de la table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -34,7 +34,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `categories`
+-- Déchargement des données de la table `categories`
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `categories` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entries_tracking`
+-- Structure de la table `entries_tracking`
 --
 
 CREATE TABLE `entries_tracking` (
@@ -57,7 +57,7 @@ CREATE TABLE `entries_tracking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `entries_tracking`
+-- Déchargement des données de la table `entries_tracking`
 --
 
 INSERT INTO `entries_tracking` (`entry_id`, `creation_date`, `modified_date`) VALUES
@@ -70,7 +70,7 @@ INSERT INTO `entries_tracking` (`entry_id`, `creation_date`, `modified_date`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `movies`
+-- Structure de la table `movies`
 --
 
 CREATE TABLE `movies` (
@@ -79,11 +79,11 @@ CREATE TABLE `movies` (
   `author_name` char(100) DEFAULT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `release_date` date DEFAULT NULL,
-  `category` int NOT NULL
+  `category` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `movies`
+-- Déchargement des données de la table `movies`
 --
 
 INSERT INTO `movies` (`movie_id`, `movie_name`, `author_name`, `description`, `release_date`, `category`) VALUES
@@ -96,7 +96,7 @@ INSERT INTO `movies` (`movie_id`, `movie_name`, `author_name`, `description`, `r
 -- --------------------------------------------------------
 
 --
--- Table structure for table `movies_payed`
+-- Structure de la table `movies_payed`
 --
 
 CREATE TABLE `movies_payed` (
@@ -105,20 +105,20 @@ CREATE TABLE `movies_payed` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `movies_payed`
+-- Déchargement des données de la table `movies_payed`
 --
 
 INSERT INTO `movies_payed` (`movie_id`, `payment_id`) VALUES
+(4, 1),
 (1, 2),
 (2, 3),
 (3, 4),
-(4, 1),
 (5, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payments`
+-- Structure de la table `payments`
 --
 
 CREATE TABLE `payments` (
@@ -129,7 +129,7 @@ CREATE TABLE `payments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `payments`
+-- Déchargement des données de la table `payments`
 --
 
 INSERT INTO `payments` (`payment_id`, `amount_payed`, `payment_date`, `payment_author`) VALUES
@@ -142,7 +142,7 @@ INSERT INTO `payments` (`payment_id`, `amount_payed`, `payment_date`, `payment_a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
 CREATE TABLE `users` (
@@ -153,7 +153,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`user_id`, `fullname`, `username`, `gender`) VALUES
@@ -166,7 +166,7 @@ INSERT INTO `users` (`user_id`, `fullname`, `username`, `gender`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users_gender`
+-- Structure de la table `users_gender`
 --
 
 CREATE TABLE `users_gender` (
@@ -175,7 +175,7 @@ CREATE TABLE `users_gender` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `users_gender`
+-- Déchargement des données de la table `users_gender`
 --
 
 INSERT INTO `users_gender` (`gender_id`, `gender_name`) VALUES
@@ -183,37 +183,40 @@ INSERT INTO `users_gender` (`gender_id`, `gender_name`) VALUES
 ('M', 'Male');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `categories`
+-- Index pour la table `categories`
 --
 ALTER TABLE `categories`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `entries_tracking`
+-- Index pour la table `entries_tracking`
 --
 ALTER TABLE `entries_tracking`
   ADD PRIMARY KEY (`entry_id`),
   ADD KEY `entry_id` (`entry_id`);
 
 --
--- Indexes for table `movies`
+-- Index pour la table `movies`
 --
 ALTER TABLE `movies`
   ADD PRIMARY KEY (`movie_id`),
   ADD KEY `category` (`category`);
 
 --
--- Indexes for table `movies_payed`
+-- Index pour la table `movies_payed`
 --
 ALTER TABLE `movies_payed`
-  ADD PRIMARY KEY (`movie_id`);
+  ADD PRIMARY KEY (`movie_id`),
+  ADD UNIQUE KEY `payment_id_2` (`payment_id`),
+  ADD UNIQUE KEY `movie_id` (`movie_id`),
+  ADD KEY `payment_id` (`payment_id`);
 
 --
--- Indexes for table `payments`
+-- Index pour la table `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`payment_id`),
@@ -221,83 +224,83 @@ ALTER TABLE `payments`
   ADD KEY `payment_author_2` (`payment_author`);
 
 --
--- Indexes for table `users`
+-- Index pour la table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD KEY `gender` (`gender`);
 
 --
--- Indexes for table `users_gender`
+-- Index pour la table `users_gender`
 --
 ALTER TABLE `users_gender`
   ADD PRIMARY KEY (`gender_id`),
   ADD KEY `gender_id` (`gender_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `entries_tracking`
+-- AUTO_INCREMENT pour la table `entries_tracking`
 --
 ALTER TABLE `entries_tracking`
   MODIFY `entry_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `movies`
+-- AUTO_INCREMENT pour la table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `movie_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `movie_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `movies_payed`
+-- AUTO_INCREMENT pour la table `movies_payed`
 --
 ALTER TABLE `movies_payed`
   MODIFY `movie_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `payments`
+-- AUTO_INCREMENT pour la table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `payment_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `categories`
---
-ALTER TABLE `categories`
-  ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `movies` (`category`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `entries_tracking`
+-- Contraintes pour la table `entries_tracking`
 --
 ALTER TABLE `entries_tracking`
   ADD CONSTRAINT `entries_date_ibfk_1` FOREIGN KEY (`entry_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- Constraints for table `movies`
+-- Contraintes pour la table `movies`
 --
 ALTER TABLE `movies`
-  ADD CONSTRAINT `movies_ibfk_3` FOREIGN KEY (`movie_id`) REFERENCES `movies_payed` (`movie_id`);
+  ADD CONSTRAINT `movies_ibfk_1` FOREIGN KEY (`category`) REFERENCES `categories` (`category_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
--- Constraints for table `payments`
+-- Contraintes pour la table `movies_payed`
+--
+ALTER TABLE `movies_payed`
+  ADD CONSTRAINT `movies_payed_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Contraintes pour la table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `movies_payed` (`payment_id`);
 
 --
--- Constraints for table `users`
+-- Contraintes pour la table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`gender`) REFERENCES `users_gender` (`gender_id`);
